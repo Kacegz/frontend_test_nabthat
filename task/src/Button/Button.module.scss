@@ -1,0 +1,9 @@
+@use '../variables.scss';
+.button {
+    border: none;
+    background-color: transparent;
+    color: variables.$greyedFont;
+    border: 1px solid variables.$font;
+    padding: 0.6em;
+    width: 30vw;
+}
