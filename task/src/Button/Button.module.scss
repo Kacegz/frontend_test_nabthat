@@ -6,4 +6,10 @@
     border: 1px solid variables.$font;
     padding: 0.6em;
     width: 30vw;
+    font-weight: 600;
+}
+@media screen and (min-width: 600px) {
+    .button {
+        width: 15vw;
+    }
 }
