@@ -5,7 +5,7 @@ function App() {
     return (
         <>
             <div className={styles.navbar}>
-                <div className={styles.logoBg}>
+                <div className={styles.logo__bg}>
                     <a href="/">
                         <img
                             src="https://www.svgrepo.com/show/512355/html-124.svg"
@@ -41,7 +41,7 @@ function App() {
                             </label>
                         </div>
                     </div>
-                    <div className={styles.block__Second}>
+                    <div className={styles.block__second}>
                         <h3>BLOK DRUGI</h3>
                         <div className={styles.buttons}>
                             <Button>ZASTĄP</Button>
@@ -61,7 +61,9 @@ function App() {
                 </div>
             </div>
             <div className={styles.footer}>
-                <div className={styles.footer__css}>CSS IS AWESOME</div>
+                <div className={styles.footer__css}>
+                    <span>CSS IS AWESOME</span>
+                </div>
                 <button className={styles.footer__button}>POKAŻ ^</button>
             </div>
         </>
