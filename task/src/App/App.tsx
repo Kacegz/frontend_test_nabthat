@@ -24,7 +24,7 @@ function App() {
                     <h1>Nagłówek H1</h1>
                 </div>
                 <div className={styles.blocks}>
-                    <div className={styles.firstBlock}>
+                    <div className={styles.block__first}>
                         <h3>BLOK PIERWSZY</h3>
                         <div className={styles.inputs}>
                             <label>
@@ -41,14 +41,14 @@ function App() {
                             </label>
                         </div>
                     </div>
-                    <div className={styles.secondBlock}>
+                    <div className={styles.block__Second}>
                         <h3>BLOK DRUGI</h3>
                         <div className={styles.buttons}>
                             <Button>ZASTĄP</Button>
                             <Button>DOKLEJ</Button>
                         </div>
                     </div>
-                    <div className={styles.textSection}>
+                    <div className={styles.section__text}>
                         <h3>BLOK Z DŁUGĄ NAZWĄ KTÓRA SAMA SIĘ PRZYTNIE ...</h3>
                         <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea minus officiis hic maxime ad
@@ -61,8 +61,8 @@ function App() {
                 </div>
             </div>
             <div className={styles.footer}>
-                <div className={styles.footerBox}>CSS IS AWESOME</div>
-                <button className={styles.footerButton}>POKAŻ ^</button>
+                <div className={styles.footer__css}>CSS IS AWESOME</div>
+                <button className={styles.footer__button}>POKAŻ ^</button>
             </div>
         </>
     );
