@@ -7,6 +7,11 @@
     padding: 0.6em;
     width: 30vw;
     font-weight: 600;
+    cursor: pointer;
+    &:hover {
+        background-color: variables.$hover;
+        color: variables.$font;
+    }
 }
 @media screen and (min-width: 1000px) {
     .button {

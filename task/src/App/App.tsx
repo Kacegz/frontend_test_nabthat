@@ -1,22 +1,32 @@
 import styles from './App.module.scss';
 import Button from '../Button/Button';
+import { useState } from 'react';
 
 function App() {
+    const [credentials, setCredentials] = useState<string>('');
+    function toggleCredentials() {
+        if (credentials === '') {
+            setCredentials('Kacper Makiel');
+        } else {
+            setCredentials('');
+        }
+    }
     return (
         <>
             <div className={styles.navbar}>
-                <div className={styles.logo__bg}>
-                    <a href="/">
+                <a href="/">
+                    <div className={styles.logo__bg}>
                         <img
                             src="https://www.svgrepo.com/show/512355/html-124.svg"
                             alt="Logo"
                             className={styles.logo}
                             srcSet=""
                         />
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <p>
                     Zadanie <b>rekrutacyjne</b>
+                    {credentials}
                 </p>
             </div>
             <div className={styles.main}>
@@ -64,7 +74,14 @@ function App() {
                 <div className={styles.footer__css}>
                     <span>CSS IS AWESOME</span>
                 </div>
+                <h2 className={styles.footer__logo}>
+                    <span>nabthat</span>
+                </h2>
                 <button className={styles.footer__button}>POKAŻ ^</button>
+                <div className={styles.dropdown}>
+                    <button onClick={() => window.location.reload()}>ZRESETUJ USTAWIENIA</button>
+                    <button onClick={() => toggleCredentials()}>POKAŻ DANE OSOBOWE</button>
+                </div>
             </div>
         </>
     );
