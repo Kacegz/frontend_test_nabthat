@@ -1,4 +1,8 @@
 import styles from './Button.module.scss';
-export default function Button({ children }: { children: React.ReactNode }) {
-    return <button className={styles.button}>{children}</button>;
+export default function Button({ click, children }: { children: React.ReactNode; click: () => void }) {
+    return (
+        <button className={styles.button} onClick={click}>
+            {children}
+        </button>
+    );
 }

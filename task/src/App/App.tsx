@@ -1,9 +1,33 @@
 import styles from './App.module.scss';
 import Button from '../Button/Button';
+import { data } from '../../data.json';
 import { useState } from 'react';
 
 function App() {
     const [credentials, setCredentials] = useState<string>('');
+    const [option, setOption] = useState<string>('0');
+    const [text, setText] = useState<string>(data[0].text);
+    const [remainingData, setRemainingData] = useState(data);
+
+    function handleButtonClick(choice: string) {
+        let index = 0;
+        if (option === 'random') {
+            index = Math.floor(Math.random() * remainingData.length);
+        } else if (option === '1') {
+            index = 1;
+        }
+        if (choice === 'ZASTĄP') {
+            setRemainingData(data);
+            setText(data[index].text);
+        } else {
+            if (remainingData.length === 1) {
+                return;
+            }
+            setText(text + ' ' + remainingData[index].text);
+            setRemainingData((prevRemainingData) => prevRemainingData.filter((_, i) => i !== index));
+        }
+    }
+
     function toggleCredentials() {
         if (credentials === '') {
             setCredentials('Kacper Makiel');
@@ -26,7 +50,8 @@ function App() {
                 </a>
                 <p>
                     Zadanie <b>rekrutacyjne</b>
-                    {credentials}
+                    <br />
+                    <span>{credentials}</span>
                 </p>
             </div>
             <div className={styles.main}>
@@ -38,15 +63,34 @@ function App() {
                         <h3>BLOK PIERWSZY</h3>
                         <div className={styles.inputs}>
                             <label>
-                                <input type="radio" name="options" id="" value="first" />
+                                <input
+                                    type="radio"
+                                    name="options"
+                                    id=""
+                                    value="0"
+                                    defaultChecked
+                                    onChange={(e) => setOption(e.target.value)}
+                                />
                                 Opcja pierwsza
                             </label>
                             <label>
-                                <input type="radio" name="options" id="" value="second" />
+                                <input
+                                    type="radio"
+                                    name="options"
+                                    id=""
+                                    value="1"
+                                    onChange={(e) => setOption(e.target.value)}
+                                />
                                 Opcja druga
                             </label>
                             <label>
-                                <input type="radio" name="options" id="" value="random" />
+                                <input
+                                    type="radio"
+                                    name="options"
+                                    id=""
+                                    value="random"
+                                    onChange={(e) => setOption(e.target.value)}
+                                />
                                 Opcja losowa
                             </label>
                         </div>
@@ -54,19 +98,13 @@ function App() {
                     <div className={styles.block__second}>
                         <h3>BLOK DRUGI</h3>
                         <div className={styles.buttons}>
-                            <Button>ZASTĄP</Button>
-                            <Button>DOKLEJ</Button>
+                            <Button click={() => handleButtonClick('ZASTĄP')}>ZASTĄP</Button>
+                            <Button click={() => handleButtonClick('DOKLEJ')}>DOKLEJ</Button>
                         </div>
                     </div>
                     <div className={styles.section__text}>
                         <h3>BLOK Z DŁUGĄ NAZWĄ KTÓRA SAMA SIĘ PRZYTNIE ...</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea minus officiis hic maxime ad
-                            quidem nostrum modi debitis iste commodi labore assumenda, veritatis animi magni facere
-                            nulla aliquam provident obcaecati? Alias praesentium voluptatem ab sapiente rem odio aliquam
-                            nihil! Quia eaque vitae a ducimus ipsa consectetur vel qui soluta perspiciatis, expedita
-                            odit! Omnis obcaecati repellendus totam! Facilis veniam quisquam fuga?
-                        </p>
+                        <p>{text}</p>
                     </div>
                 </div>
             </div>
