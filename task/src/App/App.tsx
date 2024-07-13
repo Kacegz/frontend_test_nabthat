@@ -1,13 +1,14 @@
 import styles from './App.module.scss';
 import Button from '../Button/Button';
 import { data } from '../../data.json';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 function App() {
     const [credentials, setCredentials] = useState<string>('');
     const [option, setOption] = useState<string>('0');
     const [text, setText] = useState<string>(data[0].text);
-    const [remainingData, setRemainingData] = useState(data);
+    const [remainingData, setRemainingData] = useState(data.slice(1));
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     function handleButtonClick(choice: string) {
         let index = 0;
@@ -17,8 +18,8 @@ function App() {
             index = 1;
         }
         if (choice === 'ZASTĄP') {
-            setRemainingData(data);
             setText(data[index].text);
+            setRemainingData(data.filter((element) => element.text !== data[index].text));
         } else {
             if (remainingData.length === 1) {
                 return;
@@ -33,6 +34,14 @@ function App() {
             setCredentials('Kacper Makiel');
         } else {
             setCredentials('');
+        }
+    }
+    function toggleDropdown() {
+        if (dropdownRef.current === null) return;
+        if (dropdownRef.current.style.display === 'none') {
+            dropdownRef.current.style.display = 'flex';
+        } else {
+            dropdownRef.current.style.display = 'none';
         }
     }
     return (
@@ -115,8 +124,10 @@ function App() {
                 <h2 className={styles.footer__logo}>
                     <span>nabthat</span>
                 </h2>
-                <button className={styles.footer__button}>POKAŻ ^</button>
-                <div className={styles.dropdown}>
+                <button className={styles.footer__button} onClick={() => toggleDropdown()}>
+                    POKAŻ ^
+                </button>
+                <div ref={dropdownRef} className={styles.dropdown}>
                     <button onClick={() => window.location.reload()}>ZRESETUJ USTAWIENIA</button>
                     <button onClick={() => toggleCredentials()}>POKAŻ DANE OSOBOWE</button>
                 </div>
