@@ -1,7 +1,5 @@
-**/*.html
-*/*/*.scss
+*.html
 *.scss
-src/index.scss
 *.json
 node_modules
 .gitignore

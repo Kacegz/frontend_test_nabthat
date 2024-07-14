@@ -6,9 +6,10 @@ import { useRef, useState } from 'react';
 function App() {
     const [credentials, setCredentials] = useState<string>('');
     const [option, setOption] = useState<string>('0');
-    const [text, setText] = useState<string>(data[0].text);
+    const [text, setText] = useState<Array<string>>([data[0].text]);
     const [remainingData, setRemainingData] = useState(data.slice(1));
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const arrowRef = useRef<HTMLImageElement>(null);
 
     function handleButtonClick(choice: string) {
         let index = 0;
@@ -18,15 +19,17 @@ function App() {
             index = 1;
         }
         if (choice === 'ZASTĄP') {
-            setText(data[index].text);
+            setText([data[index].text]);
+
             setRemainingData(data.filter((element) => element.text !== data[index].text));
         } else {
             if (remainingData.length === 1) {
                 return;
             }
-            setText(text + ' ' + remainingData[index].text);
+            setText([...text, remainingData[index].text]);
             setRemainingData((prevRemainingData) => prevRemainingData.filter((_, i) => i !== index));
         }
+        console.log(text);
     }
 
     function toggleCredentials() {
@@ -37,10 +40,12 @@ function App() {
         }
     }
     function toggleDropdown() {
-        if (dropdownRef.current === null) return;
-        if (dropdownRef.current.style.display === 'none') {
+        if (dropdownRef.current === null || arrowRef.current === null) return;
+        if (dropdownRef.current.style.display == 'none') {
+            arrowRef.current.style.transform = 'rotate(180deg)';
             dropdownRef.current.style.display = 'flex';
         } else {
+            arrowRef.current.style.transform = 'rotate(360deg)';
             dropdownRef.current.style.display = 'none';
         }
     }
@@ -113,7 +118,11 @@ function App() {
                     </div>
                     <div className={styles.section__text}>
                         <h3>BLOK Z DŁUGĄ NAZWĄ KTÓRA SAMA SIĘ PRZYTNIE ...</h3>
-                        <p>{text}</p>
+                        <p>
+                            {text.map((element) => {
+                                return <span key={element}>{element} </span>;
+                            })}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -125,11 +134,31 @@ function App() {
                     <span>nabthat</span>
                 </h2>
                 <button className={styles.footer__button} onClick={() => toggleDropdown()}>
-                    POKAŻ ^
+                    POKAŻ
+                    <img
+                        ref={arrowRef}
+                        className={styles.arrow}
+                        src="https://www.svgrepo.com/show/511474/arrow-up-340.svg"
+                        alt=""
+                    />
                 </button>
-                <div ref={dropdownRef} className={styles.dropdown}>
-                    <button onClick={() => window.location.reload()}>ZRESETUJ USTAWIENIA</button>
-                    <button onClick={() => toggleCredentials()}>POKAŻ DANE OSOBOWE</button>
+                <div ref={dropdownRef} className={styles.dropdown} style={{ display: 'none' }}>
+                    <div>
+                        <img
+                            className={styles.choiceArrow}
+                            src="https://www.svgrepo.com/show/511474/arrow-up-340.svg"
+                            alt=""
+                        />
+                        <button onClick={() => window.location.reload()}>ZRESETUJ USTAWIENIA</button>
+                    </div>
+                    <div>
+                        <img
+                            className={styles.choiceArrow}
+                            src="https://www.svgrepo.com/show/511474/arrow-up-340.svg"
+                            alt=""
+                        />
+                        <button onClick={() => toggleCredentials()}>POKAŻ DANE OSOBOWE</button>
+                    </div>
                 </div>
             </div>
         </>
